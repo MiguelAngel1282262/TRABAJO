@@ -1,5 +1,4 @@
 import streamlit as st
-from PIL import Image
 import time
 
 st.set_page_config(page_title="Verificación – Tulkit Pay", layout="wide")
@@ -8,10 +7,10 @@ st.title("Verificación de Identidad – Tulkit Pay")
 st.write("Completa estos pasos para verificar tu identidad en menos de 2 minutos.")
 st.write("---")
 
-# COLUMNAS: IZQUIERDA (VERIFICACIÓN) / DERECHA (APP EN SEGUNDO PLANO)
-col_verif, col_preview = st.columns([1.2, 0.8])
+# ---------------- COLUMNAS ----------------
+col_verif, col_preview = st.columns([1.25, 1])
 
-# ---------------------- COLUMNA IZQUIERDA ----------------------
+# --------------------- COLUMNA IZQUIERDA (VERIFICACIÓN) ---------------------
 with col_verif:
 
     st.header("1️⃣ Ingresa tu DNI")
@@ -25,8 +24,8 @@ with col_verif:
         else:
             st.error("El DNI debe tener 8 dígitos.")
 
-    st.header("2️⃣ Tómate una selfie para prueba de vida")
-    selfie = st.camera_input("Tómate una foto")
+    st.header("2️⃣ Tómate una selfie")
+    selfie = st.camera_input("Captura tu selfie para la prueba de vida")
 
     selfie_ok = False
     if selfie is not None:
@@ -41,8 +40,8 @@ with col_verif:
         elif not selfie_ok:
             st.error("❌ Falta tomar la selfie.")
         else:
-            with st.spinner("Verificando identidad… Esto tomará unos segundos."):
-                time.sleep(3)
+            with st.spinner("Verificando identidad…"):
+                time.sleep(2.5)
 
             st.success("🎉 ¡Tu identidad ha sido verificada exitosamente!")
             st.balloons()
@@ -52,29 +51,60 @@ Tu verificación ha sido completada.
 Ahora puedes usar **Tulkit Pay** sin restricciones.
 """)
 
-
-# ---------------------- COLUMNA DERECHA (APP EN SEGUNDO PLANO) ----------------------
+# --------------------- COLUMNA DERECHA (PREVIEW APPSIMULADA) ---------------------
 with col_preview:
 
-    st.header("👀 Vista previa de la app")
-    st.write("Puedes explorar mientras verificamos tu identidad:")
+    st.header("👀 Vista previa de la app (modo lectura)")
+    st.write("Puedes explorar mientras verificamos tu identidad.")
 
-    st.subheader("💳 Tu futura tarjeta Tulkit Pay")
-    st.image("card.png", caption="Tarjeta (puedes reemplazar esta imagen)", use_container_width=True)
+    # Tarjeta simulada
+    st.subheader("💳 Tu tarjeta Tulkit Pay")
+    st.markdown("""
+    <div style='padding:20px; border-radius:15px; background:#4f46e5; color:white; box-shadow:0 0 10px rgba(0,0,0,0.2);'>
+        <h3 style='margin:0;'>TULKIT PAY</h3>
+        <p>**** 9832</p>
+        <p>Juan Pérez</p>
+        <p style='font-size:12px;'>Válida hasta 12/29</p>
+    </div>
+    """, unsafe_allow_html=True)
 
+    st.write("")
+
+    # Opciones de recarga
     st.subheader("🔄 Opciones de Recarga")
-    st.write("""
-    - Recarga bancaria  
-    - Cripto a tarjeta  
-    - Transferencias instantáneas  
-    """)
+    st.markdown("""
+    <div style='padding:15px; border-radius:10px; background:#f3f4f6;'>
+        • Recarga bancaria<br>
+        • Cripto a tarjeta<br>
+        • Transferencias instantáneas
+    </div>
+    """, unsafe_allow_html=True)
 
+    st.write("")
+
+    # Beneficios
     st.subheader("🎁 Beneficios y Cashback")
-    st.write("""
-    - Cashback del 2% en compras  
-    - Bonos por recargas  
-    - Recompensas semanales  
-    """)
+    st.markdown("""
+    <div style='padding:15px; border-radius:10px; background:#f3f4f6;'>
+        • Cashback del 2% en compras<br>
+        • Bonos por recargas<br>
+        • Promociones semanales<br>
+        • Misiones y recompensas
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.subheader("📱 Vista general de la app")
-    st.image("app_preview.png", caption="Pantalla previa (reemplazar)", use_container_width=True)
+    st.write("")
+
+    # Vista previa de la app simulada
+    st.subheader("📱 Pantalla principal (Simulada)")
+    st.markdown("""
+    <div style='padding:20px; border-radius:15px; background:#e5e7eb; box-shadow:0 0 10px rgba(0,0,0,0.15);'>
+        <strong>Saldo:</strong> S/ 0.00<br><br>
+        Menú rápido:<br>
+        - Enviar dinero<br>
+        - Recargar<br>
+        - Historial<br>
+        - Configuración<br><br>
+        (Simulación visual)
+    </div>
+    """, unsafe_allow_html=True)
